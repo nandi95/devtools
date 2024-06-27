@@ -12,10 +12,11 @@ const emit = defineEmits<{
   (event: 'open-default-input'): void
 }>()
 
-const routeInputBodyJSON = ref({ payload: {} })
+const routeInputBodyJSON = ref<any>({ payload: {} })
 const { inputDefaults } = useDevToolsOptions('serverRoutes')
 const [DefineDefaultInputs, UseDefaultInputs] = createReusableTemplate()
 
+const colorMode = useColorMode()
 const config = useServerConfig()
 
 const response = reactive({
@@ -38,6 +39,9 @@ const responseLang = computed(() => {
 
 const fetching = ref(false)
 const started = ref(false)
+
+const openInEditor = useOpenInEditor()
+
 const activeTab = ref()
 
 const tabInputs = ['json']
@@ -231,17 +235,16 @@ const copy = useCopy()
               n="xs blue"
               icon="carbon:copy"
               :border="false"
-              @click="copy(finalURL, 'server-route-url')"
+              @click="copy(finalURL, 'server-task-url')"
             />
-            <!-- @todo: Get file path when retrieving tasks -->
-            <!-- <NButton
+            <NButton
               v-tooltip="'Open in Editor'"
               title="Open in Editor"
               icon="carbon-launch"
               n="xs blue"
               :border="false"
-              @click="openInEditor(task.filepath)"
-            /> -->
+              @click="openInEditor(task.handler)"
+            />
           </div>
         </div>
         <NButton h-full n="primary solid" @click="fetchData">
@@ -308,9 +311,13 @@ const copy = useCopy()
         <JsonEditorVue
           v-else-if="selectedTabInput === 'json'"
           v-model="routeInputBodyJSON"
-          :class="[$colorMode.value === 'dark' ? 'jse-theme-dark' : 'light']"
+          :class="colorMode === 'dark' ? 'jse-theme-dark' : 'light'"
           class="json-editor-vue of-auto text-sm outline-none"
-          v-bind="$attrs" mode="text" :navigation-bar="false" :indentation="2" :tab-size="2"
+          v-bind="$attrs"
+          :mode="('text' as any)"
+          :navigation-bar="false"
+          :indentation="2"
+          :tab-size="2"
         />
       </template>
       <UseDefaultInputs v-else />

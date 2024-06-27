@@ -71,9 +71,22 @@ export interface Payload {
 
 export interface ServerTaskInfo {
   name: string
+  handler: string
   description: string
   type: 'collection' | 'task'
   tasks?: ServerTaskInfo[]
+}
+
+export interface ScannedNitroTasks {
+  tasks: {
+    [name: string]: {
+      handler: string
+      description: string
+    }
+  }
+  scheduledTasks: {
+    [cron: string]: string[]
+  }
 }
 
 export interface PluginInfoWithMetic {
@@ -177,7 +190,7 @@ export interface VueInspectorClient {
   enable: () => void
   disable: () => void
   toggleEnabled: () => void
-  openInEditor: (baseUrl: string, file: string, line: number, column: number) => void
+  openInEditor: (url: URL) => void
   onUpdated: () => void
 }
 

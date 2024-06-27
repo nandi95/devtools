@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import 'floating-vue/dist/style.css'
+import '@vue/devtools-applet/style.css'
 import 'vanilla-jsoneditor/themes/jse-theme-dark.css'
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 import './styles/global.css'
@@ -8,7 +9,7 @@ import { setupClientRPC } from './setup/client-rpc'
 import { setupVueDevTools } from './setup/vue-devtools'
 import { splitScreenAvailable } from '~/composables/storage'
 
-if (process.client)
+if (import.meta.client)
   import('./setup/unocss-runtime')
 
 useHead({

@@ -404,7 +404,11 @@ onMounted(() => {
       </template>
     </div>
 
-    <div ref="frameBox" :style="iframeStyle">
+    <div
+      v-show="!client.inspector?.isEnabled.value"
+      ref="frameBox"
+      :style="iframeStyle"
+    >
       <FrameBox
         :client="client"
         :is-dragging="isDragging"
@@ -552,7 +556,13 @@ onMounted(() => {
   pointer-events: none;
   z-index: -1;
   border-radius: 9999px;
-  background-image: linear-gradient(45deg, #00dc82, #36e4da, #0047e1);
+  background-image: linear-gradient(45deg, #00dc82, #00dc82, #00dc82);
   filter: blur(60px);
+}
+
+@media print {
+  #nuxt-devtools-anchor {
+    display: none;
+  }
 }
 </style>
