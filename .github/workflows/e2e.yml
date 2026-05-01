@@ -1,0 +1,42 @@
+name: e2e
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths-ignore:
+      - 'docs/**'
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: pnpm
+      - run: npm install -g corepack@latest
+      - run: corepack enable
+      - run: pnpm install
+      - run: pnpm build
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+      - run: pnpm exec playwright install --with-deps chromium
+      # Playgrounds load `@nuxt/devtools` (built) by default. They only switch
+      # to `../../local` (which spawns a Nuxt dev subprocess for HMR on the
+      # devtools client) when `NUXT_DEVTOOLS_LOCAL` is set, which we don't
+      # set in CI — that subprocess doesn't reliably finish on cold runners.
+      - run: pnpm test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: tests/e2e/playwright-report/
+          retention-days: 7

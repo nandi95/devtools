@@ -37,6 +37,12 @@ coverage
 *.lcov
 .nyc_output
 
+# Playwright
+playwright-report
+test-results
+tests/e2e/playwright-report
+tests/e2e/test-results
+
 # Intellij idea
 *.iml
 .idea
@@ -61,3 +67,4 @@ packages/devtools/client/public/discovery/index.html
 **/skills/npm-*
 
 .context
+.claude
