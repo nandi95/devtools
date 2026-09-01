@@ -45,7 +45,7 @@ allowBuilds:
   vue-demi: true
 
 refs:
-  devframe: &devframe ^0.9.5
+  devframe: &devframe ^0.9.8
   # Nuxt 5 nightly. Its own `@nuxt/vite-builder-nightly` already requires
   # `vite@^8.1.5`, so this and the `vite` ref below move together.
   #
@@ -66,10 +66,10 @@ refs:
   nuxt-kit: &nuxt-kit npm:@nuxt/kit-nightly@5.0.0-29755283.b4586ef2
   nuxt-schema: &nuxt-schema npm:@nuxt/schema-nightly@5.0.0-29755283.b4586ef2
   shiki: &shiki ^4.4.3
-  unocss: &unocss ^66.8.0
+  unocss: &unocss ^66.8.1
   vite: &vite ^8.2.2
-  vite-devtools: &vite-devtools ^0.5.2
-  vue: &vue ^3.5.41
+  vite-devtools: &vite-devtools ^0.6.3
+  vue: &vue ^3.5.42
   vueuse: &vueuse ^14.4.0
 overrides:
   '@devframes/hub': *devframe
@@ -88,15 +88,15 @@ overrides:
   chokidar: ^5.0.0
   devframe: *devframe
   esbuild: ^0.28.2
-  markdown-exit: ^1.1.0-beta.2
-  rollup: ^4.62.4
+  markdown-exit: ^1.3.0
+  rollup: ^4.63.1
   semver: ^7.8.5
   typescript: ^6.0.3
   unimport: ^6.4.0
   vite: *vite
   vue: *vue
   vue-sfc-transformer: ^0.2.5
-  vue-tsc: ^3.3.10
+  vue-tsc: ^3.3.11
 update:
   ignoreDeps:
     - typescript@7
@@ -127,32 +127,32 @@ catalogs:
     nuxt: *nuxt
     shiki-codegen: *shiki
     skills-npm: ^1.2.0
-    turbo: ^2.10.11
+    turbo: ^2.10.12
     unbuild: ^3.6.1
     unocss: *unocss
     unplugin-vue: ^7.2.0
-    unplugin-vue-markdown: ^32.0.0
+    unplugin-vue-markdown: ^32.1.1
   cli:
     '@antfu/eslint-config': ^9.3.0
     '@antfu/ni': ^30.5.0
     '@nuxt/eslint': ^1.17.0
-    '@nuxt/test-utils': ^4.1.0
+    '@nuxt/test-utils': ^4.2.0
     '@playwright/test': ^1.62.1
-    bumpp: ^12.2.1
-    eslint: ^10.8.1
+    bumpp: ^12.2.2
+    eslint: ^10.9.1
     eslint-flat-config-utils: ^3.2.0
     eslint-plugin-antfu: ^3.2.3
     eslint-plugin-format: ^2.0.1
     eslint-typegen: ^2.3.1
-    knip: ^6.32.2
+    knip: ^6.33.0
     nano-staged: ^1.0.2
     nuxt-eslint-auto-explicit-import: ^0.2.0
-    simple-git-hooks: ^2.13.1
+    simple-git-hooks: ^2.14.0
     taze: ^21.1.0
-    tsx: ^4.23.12
+    tsx: ^4.23.13
     typescript: ^6.0.3
     vitest: ^4.1.11
-    vue-tsc: ^3.3.10
+    vue-tsc: ^3.3.11
   frontend:
     '@antfu/utils': ^9.3.0
     '@unocss/reset': *unocss
@@ -167,8 +167,8 @@ catalogs:
     focus-trap: ^8.2.2
     fuse.js: ^7.5.0
     hookable: ^6.1.1
-    json-editor-vue: ^0.19.1
-    markdown-exit: ^1.1.0-beta.2
+    json-editor-vue: ^0.19.2
+    markdown-exit: ^1.3.0
     markdown-it-link-attributes: ^4.0.1
     ofetch: ^1.5.1
     pathe: ^2.0.3
@@ -186,15 +186,15 @@ catalogs:
     vis-network: ^10.1.2
     vite-hot-client: ^2.2.0
     vue: *vue
-    vue-router: ^5.2.0
+    vue-router: ^5.3.0
     vue-virtual-scroller: ^3.0.5
   icons:
     '@iconify-json/bxl': ^1.2.4
-    '@iconify-json/carbon': ^1.2.25
+    '@iconify-json/carbon': ^1.2.26
     '@iconify-json/logos': ^1.2.13
     '@iconify-json/ph': ^1.2.2
     '@iconify-json/ri': ^1.2.10
-    '@iconify-json/simple-icons': ^1.2.93
+    '@iconify-json/simple-icons': ^1.2.94
     '@iconify-json/tabler': ^1.2.38
   inlined:
     package-manager-detector: ^1.8.0
@@ -223,7 +223,7 @@ catalogs:
   types:
     '@nuxt/schema': *nuxt-schema
     '@types/markdown-it-link-attributes': ^3.0.5
-    '@types/node': ^26.2.0
-    '@unhead/schema': ^3.3.2
+    '@types/node': ^26.4.0
+    '@unhead/schema': ^3.4.0
     '@vitejs/devtools-kit': *vite-devtools
     unimport: ^6.4.0
