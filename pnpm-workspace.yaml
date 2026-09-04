@@ -50,41 +50,41 @@ packages:
   - '!playgrounds/**/.output/**'
 
 refs:
-  devframe: &devframe ^0.9.11
+  devframe: &devframe ^0.9.12
   nuxt: &nuxt npm:nuxt-nightly@5.0.0-29806258.d070492f
   nuxt-kit: &nuxt-kit npm:@nuxt/kit-nightly@5.0.0-29806258.d070492f
   nuxt-schema: &nuxt-schema npm:@nuxt/schema-nightly@5.0.0-29806258.d070492f
   shiki: &shiki ^4.4.3
   unocss: &unocss ^66.9.2
   vite: &vite ^8.2.2
-  vite-devtools: &vite-devtools ^0.7.1
+  vite-devtools: &vite-devtools ^0.7.2
   vue: &vue ^3.5.42
   vueuse: &vueuse ^14.4.0
 
 overrides:
-  '@devframes/hub': ^0.9.11
-  '@devframes/json-render': ^0.9.11
-  '@devframes/plugin-code-server': ^0.9.11
-  '@devframes/plugin-data-inspector': ^0.9.11
-  '@devframes/plugin-inspect': ^0.9.11
-  '@devframes/plugin-messages': ^0.9.11
-  '@devframes/plugin-terminals': ^0.9.11
+  '@devframes/hub': *devframe
+  '@devframes/json-render': *devframe
+  '@devframes/plugin-code-server': *devframe
+  '@devframes/plugin-data-inspector': *devframe
+  '@devframes/plugin-inspect': *devframe
+  '@devframes/plugin-messages': *devframe
+  '@devframes/plugin-terminals': *devframe
   '@nuxt/devtools': workspace:*
-  '@vitejs/devtools': ^0.7.1
-  '@vitejs/devtools-kit': ^0.7.1
-  '@vue/compiler-core': ^3.5.42
-  '@vue/compiler-dom': ^3.5.42
-  '@vue/shared': ^3.5.42
+  '@vitejs/devtools': *vite-devtools
+  '@vitejs/devtools-kit': *vite-devtools
+  '@vue/compiler-core': *vue
+  '@vue/compiler-dom': *vue
+  '@vue/shared': *vue
   chokidar: ^5.0.0
-  devframe: ^0.9.11
+  devframe: *devframe
   esbuild: ^0.28.2
   markdown-exit: ^1.3.0
   rollup: ^4.63.1
   semver: ^7.8.5
   typescript: ^6.0.3
   unimport: ^6.4.0
-  vite: ^8.2.2
-  vue: ^3.5.42
+  vite: *vite
+  vue: *vue
   vue-sfc-transformer: ^0.3.0
   vue-tsc: ^3.3.11
 
@@ -104,15 +104,15 @@ catalogs:
   buildtools:
     '@nuxt/module-builder': ^1.0.3
     '@parcel/watcher': ^2.6.0
-    '@unocss/core': ^66.9.2
-    '@unocss/eslint-config': ^66.9.2
-    '@unocss/nuxt': ^66.9.2
-    '@unocss/preset-attributify': ^66.9.2
-    '@unocss/preset-icons': ^66.9.2
-    '@unocss/preset-mini': ^66.9.2
-    '@unocss/preset-uno': ^66.9.2
-    '@vitejs/devtools': ^0.7.1
-    '@vueuse/nuxt': ^14.4.0
+    '@unocss/core': *unocss
+    '@unocss/eslint-config': *unocss
+    '@unocss/nuxt': *unocss
+    '@unocss/preset-attributify': *unocss
+    '@unocss/preset-icons': *unocss
+    '@unocss/preset-mini': *unocss
+    '@unocss/preset-uno': *unocss
+    '@vitejs/devtools': *vite-devtools
+    '@vueuse/nuxt': *vueuse
     exsolve: ^1.1.1
     lightningcss: ^1.33.0
     # Nuxt 5 nightly's Nitro layer (`@nuxt/nitro-server-nightly`) builds on
@@ -124,12 +124,12 @@ catalogs:
     # whatever `autoInstallPeers` would otherwise pick independently.
     nitro: ^3.0.260610-beta
     nitropack: ^2.13.4
-    nuxt: npm:nuxt-nightly@5.0.0-29806258.d070492f
-    shiki-codegen: ^4.4.3
+    nuxt: *nuxt
+    shiki-codegen: *shiki
     skills-npm: ^1.2.0
     turbo: ^2.10.12
     unbuild: ^3.6.1
-    unocss: ^66.9.2
+    unocss: *unocss
     unplugin-vue: ^7.2.0
     unplugin-vue-markdown: ^32.1.1
   cli:
@@ -155,10 +155,10 @@ catalogs:
     vue-tsc: ^3.3.11
   frontend:
     '@antfu/utils': ^9.3.0
-    '@unocss/reset': ^66.9.2
-    '@unocss/runtime': ^66.9.2
-    '@vueuse/core': ^14.4.0
-    '@vueuse/integrations': ^14.4.0
+    '@unocss/reset': *unocss
+    '@unocss/runtime': *unocss
+    '@vueuse/core': *vueuse
+    '@vueuse/integrations': *vueuse
     birpc: ^4.2.0
     cronstrue: ^3.24.0
     diff: ^9.0.0
@@ -175,7 +175,7 @@ catalogs:
     perfect-debounce: ^2.1.0
     quicktype-core: 22.0.0
     scule: ^1.3.0
-    shiki: ^4.4.3
+    shiki: *shiki
     splitpanes: ^4.1.2
     structured-clone-es: ^2.0.1
     theme-vitesse: ^1.0.0
@@ -185,7 +185,7 @@ catalogs:
     vis-data: ^8.0.5
     vis-network: ^10.1.2
     vite-hot-client: ^2.2.0
-    vue: ^3.5.42
+    vue: *vue
     vue-router: ^5.3.1
     vue-virtual-scroller: ^3.0.5
   icons:
@@ -199,14 +199,14 @@ catalogs:
   inlined:
     package-manager-detector: ^1.8.0
   prod:
-    '@devframes/hub': ^0.9.11
-    '@devframes/plugin-code-server': ^0.9.11
-    '@devframes/plugin-data-inspector': ^0.9.11
-    '@nuxt/kit': npm:@nuxt/kit-nightly@5.0.0-29806258.d070492f
+    '@devframes/hub': *devframe
+    '@devframes/plugin-code-server': *devframe
+    '@devframes/plugin-data-inspector': *devframe
+    '@nuxt/kit': *nuxt-kit
     consola: ^3.4.2
     defu: ^6.1.7
     destr: ^2.0.5
-    devframe: ^0.9.11
+    devframe: *devframe
     fast-npm-meta: ^2.2.0
     image-meta: ^0.2.2
     local-pkg: ^1.2.1
@@ -221,9 +221,9 @@ catalogs:
     vite-plugin-inspect: ^12.0.2
     vite-plugin-vue-tracer: ^1.5.0
   types:
-    '@nuxt/schema': npm:@nuxt/schema-nightly@5.0.0-29806258.d070492f
+    '@nuxt/schema': *nuxt-schema
     '@types/markdown-it-link-attributes': ^3.0.5
     '@types/node': ^26.4.1
     '@unhead/schema': ^3.4.0
-    '@vitejs/devtools-kit': ^0.7.1
+    '@vitejs/devtools-kit': *vite-devtools
     unimport: ^6.4.0
