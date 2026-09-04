@@ -13,16 +13,20 @@ const TARGET = '../devtools-assets/dist'
 // relative base directly). Rewrite each HTML shell so it works at any mount
 // point:
 //
-// 1. The inline runtime config's `baseURL` becomes a `location`-derived
-//    expression. The client uses hash routing in production, so
-//    `location.pathname` is always the mount path (possibly ending in
-//    `index.html`, hence stripping the trailing filename).
+// 1. The inline runtime config's `app` object gets a `baseURL` set to a
+//    `location`-derived expression (Nuxt no longer serializes `baseURL` into
+//    the prerendered shell's `window.__NUXT__.config.app` at all — it's read
+//    at runtime, just never populated for a static `ssr:false` generate — so
+//    this injects it rather than rewriting an existing value). The client
+//    uses hash routing in production, so `location.pathname` is always the
+//    mount path (possibly ending in `index.html`, hence stripping the
+//    trailing filename).
 // 2. Every other placeholder occurrence (asset `href`/`src`, importmap)
 //    becomes `./`, relative to the document — which, per 1., is always the
 //    mount root.
 const PLACEHOLDER = '/__NUXT_DEVTOOLS_BASE__/'
-const RUNTIME_CONFIG_BASE_RE = /baseURL:"\/__NUXT_DEVTOOLS_BASE__\/"/
-const RUNTIME_CONFIG_BASE_REPLACEMENT = 'baseURL:location.pathname.replace(/[^/]*$/,"")'
+const RUNTIME_CONFIG_APP_RE = /(window\.__NUXT__\.config\s*=\s*\{[\s\S]*?\bapp:\{)([^}]*)(\})/
+const RUNTIME_CONFIG_BASE_URL = 'location.pathname.replace(/[^/]*$/,"")'
 
 rmSync(TARGET, { recursive: true, force: true })
 cpSync(SOURCE, TARGET, { recursive: true })
@@ -34,11 +38,14 @@ if (htmlFiles.length === 0)
 for (const file of htmlFiles) {
   const path = join(TARGET, file)
   let html = readFileSync(path, 'utf-8')
-  if (!RUNTIME_CONFIG_BASE_RE.test(html))
-    throw new Error(`Expected the inline runtime-config \`baseURL:"${PLACEHOLDER}"\` in ${file} — Nuxt's serialization may have changed; update copy-client.mjs.`)
-  // Order matters: rewrite the runtime-config occurrence first, then the
-  // remaining (asset URL) occurrences.
-  html = html.replace(RUNTIME_CONFIG_BASE_RE, RUNTIME_CONFIG_BASE_REPLACEMENT)
+  if (!RUNTIME_CONFIG_APP_RE.test(html))
+    throw new Error(`Expected to find \`window.__NUXT__.config\`'s \`app: {...}\` object in ${file} — Nuxt's serialization may have changed; update copy-client.mjs.`)
+  // Order matters: inject the runtime-config baseURL first, then rewrite the
+  // remaining (asset URL) placeholder occurrences.
+  html = html.replace(RUNTIME_CONFIG_APP_RE, (_, prefix, existingProps, suffix) => {
+    const baseUrlProp = `baseURL:${RUNTIME_CONFIG_BASE_URL}`
+    return `${prefix}${existingProps ? `${baseUrlProp},${existingProps}` : baseUrlProp}${suffix}`
+  })
   html = html.replaceAll(PLACEHOLDER, './')
   writeFileSync(path, html)
 }
