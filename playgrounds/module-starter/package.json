@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "version": "4.0.0-alpha.20",
+  "version": "4.0.0-beta.1",
   "private": true,
   "exports": {
     ".": {
